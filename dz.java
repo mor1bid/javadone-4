@@ -32,13 +32,13 @@ public class dz {
         first(lili);
 
         Stack<Integer> cats = new Stack<>();
-        // boolean calc = true;
+        boolean calc = true;
         String arga = "";
         double res = 0;
         System.out.println("\n3. Калькулятор! \nДоступные арифметические действия: сложение (+), вычитание (-), умножение (*), деление (/) \nВведите первый аргумент: ");
-        for (int calc = 0; calc != 1;) 
+        while (calc)
         {
-            if ( arga == "") { arga = work.nextLine(); }
+            if ( arga.equals("")) { arga = work.nextLine(); }
 		    double numa = 0, numb = 0;
 		    if (arga.chars().allMatch(Character::isDigit)) { numa = Double.parseDouble(arga); }
 		    else System.out.println("Заданный аргумент не является числом!");
@@ -59,18 +59,26 @@ public class dz {
 
             System.out.println("Новая операция? y/n");
             String yn = work.nextLine();
-            if (yn == "y") 
+            if (yn.equals("y")) 
             {
-                for (int var = 0; var != 1;)
+                boolean var = true;
+                while (var)
                 {
-                    System.out.println("Использовать предыдущую операцию?: \n(1) Да;\n(2) Нет;\n(3) Удалить предыдущую операцию" + "(" + res + ")");
+                    System.out.println("Использовать предыдущую операцию?: \n(1) Да;\n(2) Нет;\n(3) Удалить предыдущую операцию" + " (" + cats.peek() + ")");
                     String chs = work.nextLine();
-                    if (chs == "1") {String yes = String.valueOf(cats.peek()); arga = yes; var = 1; System.out.println(arga);}
-                    if (chs == "2") {arga = "";}
-                    if (chs == "3") {cats.pop();}
+                    if (chs.equals("1")) {
+                        String yes = String.valueOf(cats.peek()); 
+                        arga = yes; 
+                        var = false; 
+                    }
+                    if (chs.equals("2")) {arga = "";}
+                    if (chs.equals("3")) {cats.pop();}
                 }
             }
-            else if (yn == "n") {calc = 1;}
+            else if (yn.equals( "n")) 
+            {
+                calc = false;
+            }
         }
         work.close(); 
     }
