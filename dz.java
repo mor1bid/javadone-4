@@ -8,7 +8,8 @@ public class dz {
         Scanner work = new Scanner(System.in);
         System.out.print("1. Введине желаемый размер массива: ");
         String amo = work.nextLine();
-        int unt = Integer.parseInt(amo); 
+        int unt = Integer.parseInt(amo);
+        System.out.println(unt/2);
         LinkedList<Integer> lili = new LinkedList<>();
         for (int i = 0; i<=unt; i++) 
         {
@@ -16,7 +17,7 @@ public class dz {
             lili.add(ranum);
         }
         System.out.println(Arrays.asList(lili));
-        for (int i = 0, j = unt; i<unt/2; i++, j--) {
+        for (int i = 0, j = unt; i<=unt/2; i++, j--) {
             int newi = lili.get(j);
             int oldi = lili.get(i);
             lili.set(i, newi);
