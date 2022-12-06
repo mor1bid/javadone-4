@@ -31,22 +31,23 @@ public class dz {
         System.out.println();
         first(lili);
 
-        Stack<Integer> cats = new Stack<>();
+        Stack<Double> cats = new Stack<>();
+        cats.push(null);
         boolean calc = true;
         String arga = "";
-        double res = 0;
+        Double res = null;
         System.out.println("\n3. Калькулятор! \nДоступные арифметические действия: сложение (+), вычитание (-), умножение (*), деление (/) \nВведите первый аргумент: ");
         while (calc)
         {
             if ( arga.equals("")) { arga = work.nextLine(); }
 		    double numa = 0, numb = 0;
-		    if (arga.chars().allMatch(Character::isDigit)) { numa = Double.parseDouble(arga); }
+		    if (arga.chars().allMatch(Character::isDigit) || arga.contains(".") ) { numa = Double.parseDouble(arga); }
 		    else System.out.println("Заданный аргумент не является числом!");
             System.out.println("Укажите желаемое действие: ");
 		    String opera = work.nextLine();
 		    System.out.println("Введите второй аргумент: ");
 		    String argb = work.nextLine();
-		    if (arga.chars().allMatch(Character::isDigit)) { numb = Double.parseDouble(argb); }
+		    if (argb.chars().allMatch(Character::isDigit) || argb.contains(".") ) { numb = Double.parseDouble(argb); }
 		    else System.out.println("Заданный аргумент не является числом!");
 
 		    if (opera.equals("+")) { res = numa + numb; System.out.println("Ответ: " + res); }
@@ -54,8 +55,7 @@ public class dz {
 		    else if (opera.equals("*")) { res = numa * numb; System.out.println("Ответ: " + res); }
 		    else if (opera.equals("/") && numb != 0) { res = numa / numb; System.out.println("Ответ: " + res); }
 		    else System.out.println("Ошибка!");
-            int mouse = (int) res;
-            cats.push(mouse);
+            cats.push(res);
 
             System.out.println("Новая операция? y/n");
             String yn = work.nextLine();
@@ -64,21 +64,37 @@ public class dz {
                 boolean var = true;
                 while (var)
                 {
-                    System.out.println("Использовать предыдущую операцию?: \n(1) Да;\n(2) Нет;\n(3) Удалить предыдущую операцию" + " (" + cats.peek() + ")");
-                    String chs = work.nextLine();
-                    if (chs.equals("1")) {
-                        String yes = String.valueOf(cats.peek()); 
-                        arga = yes; 
-                        var = false; 
+                    if (cats.peek() != null) 
+                    { 
+                        System.out.println("Использовать предыдущую операцию? \n(1) Да\n(2) Нет\n(3) Удалить предыдущую операцию" + " (" + cats.peek() + ")"); 
+                        String chs = work.nextLine();
+                        if (chs.equals("1")) {
+                            String mouse = String.valueOf(cats.peek()); 
+                            arga = mouse;
+                            var = false; 
+                        }
+                        else if (chs.equals("2")) {
+                            System.out.println("Введите первый аргумент:");
+                            arga = ""; 
+                            var = false;
+                        }
+                        else if (chs.equals("3")) {
+                            cats.pop();
+                        }
+                        else {System.out.println("Ошибка!");}
                     }
-                    if (chs.equals("2")) {arga = "";}
-                    if (chs.equals("3")) {cats.pop();}
+                    else {
+                        System.out.println("Предыдущих операций не найдено.\nВведите первый аргумент:");
+                        arga = "";
+                        var = false;
+                    }
                 }
             }
             else if (yn.equals( "n")) 
             {
                 calc = false;
             }
+            else {System.out.println("Ошибка!");}
         }
         work.close(); 
     }
